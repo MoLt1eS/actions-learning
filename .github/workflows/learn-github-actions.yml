@@ -11,3 +11,22 @@ jobs:
           node-version: '20'
       - run: npm install -g bats
       - run: bats -v
+  container-test-job:
+    runs-on: ubuntu-latest
+    container:
+      image: node:18
+      env:
+        NODE_ENV: development
+      ports:
+        - 80
+      volumes:
+        - my_docker_volume:/volume_mount
+      options: --cpus 1
+    steps:
+      - name: Check where I am in the container
+        run: |
+          node -v
+          pwd
+          echo "I'm trying something over here"
+          npm install -g cowsay
+          cowsay JavaScript FTW!
